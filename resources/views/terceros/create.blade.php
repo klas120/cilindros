@@ -18,7 +18,8 @@
 @include('terceros.partials.form')
 
 <div class="form-group col-xs-12">
-{!! Form::button('Guardar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+{!! Form::button('<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>'.'   '.'Guardar', 
+['type' => 'submit', 'class' => 'btn btn-primary']) !!}
 </div>
 
 {!! Form::close() !!}

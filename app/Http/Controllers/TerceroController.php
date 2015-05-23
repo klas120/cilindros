@@ -21,9 +21,17 @@ class TerceroController extends Controller {
 	 */
 	public function index()
 	{
-		$terceros = Tercero::orderBy('nombre', 'asc')->paginate(5);
 
-		return view('terceros.index', compact('terceros'));
+		// SE ESTÁ USANDO PAGINACIÓN Y LA BUSQUEDA SÓLO MUESTRA 
+		// EL TAMAÑO DE LA	PAGINACION, POR ESO SE ENVÍA UN ARREGO 
+		// CON LA MISMOS DATOS, PERO CANTIDAD DIFERENTE.
+
+		$terceros = Tercero::orderBy('nombre', 'asc')->paginate(5);
+		$cedulas = Tercero::all();		
+
+		return view('terceros.index', array(
+				      						  'terceros' => $terceros, 
+				      						  'cedulas' => $cedulas));
 	}
 	
 	/**
@@ -46,10 +54,10 @@ class TerceroController extends Controller {
 		
 		if($tercero = Tercero::create($request->all())){
 		    Session::flash('message','El registro se ha guardado correctamente.');
-			Session::flash('class','success');
+			Session::flash('class','success glyphicon glyphicon-ok');
 		}else{
 			Session::flash('message','Ha ocurrido un error!');
-			Session::flash('class','danger');
+			Session::flash('class','danger glyphicon glyphicon-remove');
 		}
 
 		return view('terceros.create');
@@ -68,6 +76,20 @@ class TerceroController extends Controller {
 	{
 		//
 	}
+
+
+	public function mostrar()
+	{
+		$id= Input::get('micedula');
+
+		//SIN LA OPCION DE PAGINATE() NO MUESTRA LOS DATOS EN LA VISTA 
+		//Y DA ERROR EN MODEL TERCERO.
+		$tercero = Tercero::where('cedula', '=', $id)->paginate();
+		
+		return view('terceros.mostrar', compact('tercero'));
+	
+	}
+
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -94,8 +116,8 @@ class TerceroController extends Controller {
 
 		$tercero = Tercero::findOrFail($id);
 
-		// Importar la clase de Input::get('');
-	    // use Illuminate\Support\Facades\Input;
+		// Importar la clase de Input::get('');    glyphicon glyphicon-floppy-saved
+	    // use Illuminate\Support\Facades\Input;   glyphicon glyphicon-check  |  glyphicon glyphicon-thumbs-up | glyphicon glyphicon-saved
 
 		$tercero->cedula = Input::get('cedula');
 		$tercero->nombre = Input::get('nombre');
@@ -107,10 +129,10 @@ class TerceroController extends Controller {
 
 		if ($tercero->save()) {
 			Session::flash('message','El registro se ha actualizado.');
-			Session::flash('class','success');
+			Session::flash('class','success glyphicon glyphicon-ok');			
 		} else {
 			Session::flash('message','Error al actualizar registro!');
-			Session::flash('class','danger');
+			Session::flash('class','danger glyphicon glyphicon-remove');
 		}	
 
 		return view('terceros.editar', compact('tercero'));
@@ -131,10 +153,10 @@ class TerceroController extends Controller {
 
 		if ($tercero->delete()) {
 			Session::flash('message','El registro se ha eliminado correctamente.');
-			Session::flash('class','success');
+			Session::flash('class','success glyphicon glyphicon-ok');
 		} else {
 			Session::flash('message','Error al eliminar registro!');
-			Session::flash('class','danger');
+			Session::flash('class','danger glyphicon glyphicon-remove');
 		}
 
 	  return redirect('terceros');	  

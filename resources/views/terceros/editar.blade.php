@@ -62,20 +62,18 @@
 		@endif
 	</div><br>
 
-	<div class="form-group">
+	<div class="form-group">		
 		
 			{!! Form::select('rol', 
-			[
-				$tercero->rol.''=>''.$tercero->rol.' ( Rol por defecto )',
-				'cliente'=>'Cliente',
-				'proveedor'=>'Proveedor',			 
-			    'administrador'=>'Administrador'	
-			],
-			null, 
-			[
-				'class'=>'form-control floating-label',
-				'placeholder'=>'Roles de usuarios: '
-			 ]) !!}
+				array(				
+					'Cliente'=>'Cliente',
+					'Proveedor'=>'Proveedor',			 
+				    'Administrador'=>'Administrador'), ''.$tercero->rol, 
+
+			    array(
+				    'class'=>'form-control floating-label',
+					'placeholder'=>'Roles de usuarios: ')
+			)!!}
 
 		@if($errors->has('rol')) 
 			<p class="text-danger">{{ $errors->first('rol') }}</p>
@@ -95,7 +93,8 @@
 </div> <!-- /.col-sm-6 --> 
 
 <div class="form-group col-xs-12">
-{!! Form::button('Editar cambios', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+{!! Form::button('<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>'.'   '.'Editar cambios', 
+['type' => 'submit', 'class' => 'btn btn-primary']) !!}
 </div>
 
 {!! Form::close() !!}

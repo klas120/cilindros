@@ -12,4 +12,30 @@ class Tercero extends Model {
 	'cedula', 'nombre', 'rol', 'direccion', 'telefono', 'email', 'nota'
 	];
 
+	public static function cedulasDisponibles(){
+		return Tercero::all();
+	}
+
+	public static function pruebas1(){
+		return Tercero::where('cedula', '>', 0)->get();
+	}
+
+
+	public static function pruebas2(){
+		return Tercero::all();
+	}
+
+	public static function pruebas3(){
+		return Tercero::all();
+	}
+
+	public static function pruebas4(){
+		return Tercero::all();
+	}
+
+	public static function pruebas5(){
+		return Tercero::all();
+	}
+
+
 }

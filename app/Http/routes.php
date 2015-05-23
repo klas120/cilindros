@@ -18,17 +18,24 @@ Route::get('/', 'HomeController@index');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-]);
+	]);
 
 // 	RUTAS DE TERCEROS   -----------------------------------------
 resource('terceros','TerceroController');
 
 Route::post('actualizar-tercero/{id}', [
-		'as' => 'actualizar_tercero',
-		'uses' => 'TerceroController@update'
+	'as' => 'actualizar_tercero',
+	'uses' => 'TerceroController@update'
 	]);
 
+Route::get('terceros', 'TerceroController@index');
+Route::get('terceros/{id}/edit', 'TerceroController@edit');
 Route::get('terceros/{id}/delete', 'TerceroController@destroy');
+
+Route::get('terceros_mostrar', 'TerceroController@mostrar');
+
+
+
 
 //---------------------------------------------------------------
 
