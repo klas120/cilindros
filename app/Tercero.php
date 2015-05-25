@@ -12,17 +12,38 @@ class Tercero extends Model {
 	'cedula', 'nombre', 'rol', 'direccion', 'telefono', 'email', 'nota'
 	];
 
-	public static function cedulasDisponibles(){
-		return Tercero::all();
+	public static function selectRangoCedula(){
+
+		return \DB::table('terceros')
+			->select(['terceros.cedula'])
+			->where('terceros.cedula','>',3)
+			->where('terceros.cedula','<',7)
+			->get();
+
 	}
 
-	public static function pruebas1(){
-		return Tercero::where('cedula', '>', 0)->get();
+	public static function selecionOrderBy(){
+		return \DB::table('terceros')
+			->select(['terceros.nombre'])
+			->where('terceros.nombre','<>','Eugenia Martínez Hidalgo')	
+			->orderBy('nombre', 'ASC')		
+			->get();
+		 
 	}
 
 
-	public static function pruebas2(){
-		return Tercero::all();
+	public static function seleccionJoin(){
+		return \DB::table('terceros')
+			->select(
+					  'terceros.id', 
+		              'cedula', 
+		              'nombre', 
+		              'usuario_perfil.id as Id_usuario'
+		    )
+			->where('terceros.nombre','<>','Eugenia Martínez Hidalgo')	
+			->orderBy('nombre', 'ASC')	
+			->join('usuario_perfil', 'terceros.id','=', 'usuario_perfil.id')	
+			->get();
 	}
 
 	public static function pruebas3(){

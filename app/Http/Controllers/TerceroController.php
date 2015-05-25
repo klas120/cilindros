@@ -22,17 +22,26 @@ class TerceroController extends Controller {
 	public function index()
 	{
 
+
+		// $result = Tercero::selecionOrderBy();
+		
+		// dd($result);
+
+
 		// SE ESTÁ USANDO PAGINACIÓN Y LA BUSQUEDA SÓLO MUESTRA 
 		// EL TAMAÑO DE LA	PAGINACION, POR ESO SE ENVÍA UN ARREGO 
 		// CON LA MISMOS DATOS, PERO CANTIDAD DIFERENTE.
 
-		$terceros = Tercero::orderBy('nombre', 'asc')->paginate(5);
+		$terceros = Tercero::orderBy('nombre', 'asc')->paginate(10);
 		$cedulas = Tercero::all();		
 
 		return view('terceros.index', array(
 				      						  'terceros' => $terceros, 
 				      						  'cedulas' => $cedulas));
+
+		
 	}
+
 	
 	/**
 	 * Show the form for creating a new resource.
@@ -41,6 +50,8 @@ class TerceroController extends Controller {
 	 */
 	public function create()
 	{
+		// MÉTODO DE CINFONI PARA IMPRIMIR LOS DATOS = dd($terceros);
+		
 		return view('terceros.create');
 	}
 

@@ -26,7 +26,7 @@ class CreateTerceroRequest extends Request {
 			'nombre'=>'required|string|min:3',
 			'rol'=>'required',
 			'direccion'=>'required',
-			'telefono'=>'required|numeric',
+			'telefono'=>'required',
 			'email'=>'required|email',
 			'nota'=>'max:1000'
 			
